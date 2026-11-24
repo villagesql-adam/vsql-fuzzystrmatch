@@ -70,7 +70,7 @@ SELECT vsql_fuzzystrmatch.levenshtein_less_equal('kitten', 'sitting', 2);      -
 SELECT vsql_fuzzystrmatch.levenshtein_less_equal_cost('abc', 'xyz', 1,1,1, 2); -- 3
 ```
 
-Both input strings must be ≤ 255 characters. Costs must be non-negative and ≤ `INT_MAX`. `max_d` must be non-negative.
+The functions read input as UTF-8 and count characters, so `levenshtein('café', 'cafe')` is 1. Both input strings must be ≤ 255 characters; a longer string returns NULL with a warning. Costs must be non-negative and ≤ `INT_MAX`. `max_d` must be non-negative.
 
 ### Metaphone
 
