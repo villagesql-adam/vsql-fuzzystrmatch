@@ -108,7 +108,7 @@ SELECT vsql_fuzzystrmatch.dmetaphone(NULL);          -- NULL
 
 ## Prerequisites
 
-- VillageSQL 0.0.4-dev or later
+- VillageSQL 0.0.8 or later
 - C++17-capable compiler (GCC 9+, Clang 10+, Apple Clang 12+)
 - CMake 3.16+
 
