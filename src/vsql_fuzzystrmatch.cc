@@ -978,6 +978,16 @@ VEF_GENERATE_ENTRY_POINTS(
                   .build())
         .func(make_func<&metaphone_impl>("metaphone")
                   .returns(STRING)
+                  // max_output_length is caller-supplied (up to INT_MAX) and
+                  // the code can be up to twice the input's length (e.g. 'X'
+                  // -> "KS"), so no fixed cap short of the server's own
+                  // ceiling actually bounds it. Declaring the same ceiling
+                  // here (rather than guessing a "typical" value) means a
+                  // materialized result (CREATE TABLE AS SELECT, a view, a
+                  // temp table) is sized to hold whatever metaphone() can
+                  // really produce, instead of the pre-max_result_length
+                  // default of just the STRING argument's own width.
+                  .max_result_length(VEF_MAX_RESULT_LENGTH)
                   .param(STRING)
                   .param(INT)
                   .buffer_size(64)
